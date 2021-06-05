@@ -1,38 +1,61 @@
+import List from "components/List/List";
 import { useEffect, useState } from "react";
+import styled from "styled-components";
 
-const RenderAlbums = () => {
+const RenderAlbums = ({ className }) => {
   const [state, setState] = useState([]);
   const [renderList, setRenderList] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const render = async () => {
     const data = await fetch("https://jsonplaceholder.typicode.com/albums");
     const albums = await data.json();
     setState(albums);
   };
+
   document.addEventListener("DOMContentLoaded", render);
 
+  const pageNumber = () => {
+    let answer = [];
+    const number = state.length % 5 ? state.length / 5 + 1 : state.length / 5;
+    for (let i = 0; i < number; i++) {
+      answer.push(
+        <List>
+          <button>{i + 1}</button>
+        </List>
+      );
+    }
+    return answer;
+  };
+
+  const onClick = e => {
+    setCurrentPage(+e.target.textContent);
+  };
+
   useEffect(() => {
-    setRenderList(state.slice(0, 5));
-    console.log(state.length);
-  }, [state]);
+    setRenderList(() => state.slice(5 * (currentPage - 1), 5 * (currentPage - 1) + 5));
+  }, [state, currentPage]);
 
   return (
-    <>
+    <section className={className}>
       <ul>
         {renderList.map(album => {
           return (
             <>
-              <li key={album.id}>
+              <List id={album.id} key={album.id}>
                 <img src="http://placehold.it/300x200" />
                 {album.title}
-              </li>
+              </List>
             </>
           );
         })}
       </ul>
-      <button>1</button>
-      <button>2</button>
-    </>
+      <ul className="pageNumber" onClick={onClick}>
+        <button>{"<"}</button>
+        {pageNumber()}
+        <button>{">"}</button>
+      </ul>
+    </section>
   );
 };
 
