@@ -1,13 +1,14 @@
 import StyledTitle from "components/Title/Title.styled";
-import Footer from "containers/Footer/Footer";
 import StyledFooter from "containers/Footer/Footer.styled";
+import RenderAlbums from "containers/RenderAlbums/RenderAlbums";
 
-const WelcomePage = ({ className, level }) => {
+const WelcomePage = ({ className }) => {
   return (
     <>
       <StyledTitle className={className} level={1}>
         TravelFlan Board
       </StyledTitle>
+      <RenderAlbums />
       <StyledFooter />
     </>
   );

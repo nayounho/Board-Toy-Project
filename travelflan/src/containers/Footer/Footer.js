@@ -1,4 +1,4 @@
-const { default: Paragraph } = require("components/Paragraph/Paragraph");
+import Paragraph from "components/Paragraph/Paragraph";
 
 const Footer = ({ className }) => {
   return (
