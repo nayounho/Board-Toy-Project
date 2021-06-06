@@ -1,6 +1,6 @@
 import StyledTitle from "components/Title/Title.styled";
+import AddPost from "containers/AddPost/AddPost";
 import StyledFooter from "containers/Footer/Footer.styled";
-import RenderAlbums from "containers/RenderAlbums/RenderAlbums";
 import StyledRenderAlbums from "containers/RenderAlbums/RenderAlbums.styled";
 
 const WelcomePage = ({ className }) => {
@@ -10,6 +10,7 @@ const WelcomePage = ({ className }) => {
         TravelFlan Board
       </StyledTitle>
       <StyledRenderAlbums />
+      <AddPost />
       <StyledFooter />
     </>
   );

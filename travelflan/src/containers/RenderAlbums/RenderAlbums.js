@@ -1,6 +1,5 @@
 import List from "components/List/List";
 import { useEffect, useState } from "react";
-import styled from "styled-components";
 
 const RenderAlbums = ({ className }) => {
   const [state, setState] = useState([]);
@@ -29,7 +28,15 @@ const RenderAlbums = ({ className }) => {
   };
 
   const onClick = e => {
-    setCurrentPage(+e.target.textContent);
+    if (!e.target.matches("button")) return;
+    console.log(e.target.textContent);
+    if (e.target.textContent === "<") {
+      setCurrentPage(currentPage - 1);
+    } else if (e.target.textContent === ">") {
+      setCurrentPage(currentPage + 1);
+    } else {
+      setCurrentPage(+e.target.textContent);
+    }
   };
 
   useEffect(() => {
