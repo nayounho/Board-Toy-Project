@@ -1,8 +1,7 @@
 import List from "components/List/List";
 import { useEffect, useState } from "react";
 
-const RenderAlbums = ({ className }) => {
-  const [state, setState] = useState([]);
+const RenderAlbums = ({ className, state, setState }) => {
   const [renderList, setRenderList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -14,9 +13,16 @@ const RenderAlbums = ({ className }) => {
 
   document.addEventListener("DOMContentLoaded", render);
 
+  const DeletePost = async e => {
+    await fetch(`https://jsonplaceholder.typicode.com/albums/${e.target.parentNode.id}`, {
+      method: "DELETE"
+    });
+    setState(state.filter(post => +e.target.parentNode.id !== post.id));
+  };
+
   const pageNumber = () => {
     let answer = [];
-    const number = state.length % 5 ? state.length / 5 + 1 : state.length / 5;
+    const number = !state.length % 5 ? state.length / 5 + 1 : state.length / 5;
     for (let i = 0; i < number; i++) {
       answer.push(
         <List>
@@ -52,6 +58,8 @@ const RenderAlbums = ({ className }) => {
               <List id={album.id} key={album.id}>
                 <img src="http://placehold.it/300x200" />
                 {album.title}
+                <button onClick={DeletePost}>X</button>
+                <button>수정</button>
               </List>
             </>
           );
