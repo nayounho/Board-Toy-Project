@@ -1,11 +1,8 @@
 import StyledTextArea from "components/TextArea/TextArea.styled";
-import { useState } from "react";
 
 const placeHolder = "새로운 게시물을 등록해주세요";
 
-const Post = ({ state, setState }) => {
-  const [post, setPost] = useState("");
-
+const Post = ({ state, setState, post, setPost }) => {
   const onChange = e => {
     setPost(e.target.value);
   };
@@ -22,11 +19,12 @@ const Post = ({ state, setState }) => {
     });
     const addPost = await data.json();
     setState([...state, addPost]);
+    setPost("");
   };
 
   return (
     <>
-      <StyledTextArea className="textAreaContainer" cols={50} rows={5} id={"addPost"} placeholder={placeHolder} onChange={onChange}></StyledTextArea>
+      <StyledTextArea className="textAreaContainer" cols={50} rows={5} id={"addPost"} placeholder={placeHolder} onChange={onChange} value={post}></StyledTextArea>
       <button onClick={CreatePost}>등록</button>
     </>
   );
