@@ -1,10 +1,10 @@
 import List from "components/List/List";
 import { useEffect, useState } from "react";
 
-const RenderAlbums = ({ className, state, setState, post, setPost }) => {
+const RenderAlbums = ({ className, state, setState, isOpen, setIsOpen, setUpdatePost }) => {
   const [renderList, setRenderList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [isOpen, setIsOpen] = useState(false);
+  // const [isOpen, setIsOpen] = useState(false);
 
   const render = async () => {
     const data = await fetch("https://jsonplaceholder.typicode.com/albums");
@@ -21,25 +21,9 @@ const RenderAlbums = ({ className, state, setState, post, setPost }) => {
     setState(state.filter(post => +e.target.parentNode.id !== post.id));
   };
 
-  const onChange = e => {
-    setPost(e.target.value);
-  };
-
-  const UpdatePost = async e => {
-    const data = await fetch(`https://jsonplaceholder.typicode.com/albums/${e.target.parentNode.parentNode.id}`, {
-      method: "PATCH",
-      headers: { "content-Type": "application/json" },
-      body: JSON.stringify({
-        title: post
-      })
-    });
-    const newPost = await data.json();
-    setState(state.map(post => (newPost.id === post.id ? newPost : post)));
-    setPost((document.querySelector(".inputText").value = ""));
-  };
-
   const UpdateButton = e => {
     setIsOpen(!isOpen);
+    setUpdatePost({ id: +e.target.parentNode.id, title: renderList.find(item => item.id === +e.target.parentNode.id).title });
   };
 
   const pageNumber = () => {
@@ -80,12 +64,6 @@ const RenderAlbums = ({ className, state, setState, post, setPost }) => {
               <List id={album.id} key={album.id}>
                 <img src="http://placehold.it/300x200" />
                 {album.title}
-                {isOpen ? (
-                  <div>
-                    <input type="text" className="inputText" onChange={onChange} />
-                    <button onClick={UpdatePost}>Submit</button>
-                  </div>
-                ) : null}
                 <button onClick={DeletePost}>X</button>
                 <button onClick={UpdateButton}>수정</button>
               </List>
