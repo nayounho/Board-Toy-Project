@@ -23,7 +23,6 @@ const RenderPageNumber = ({ state, setRenderList }) => {
 
   const onClick = e => {
     if (!e.target.matches("button")) return;
-    console.log(e.target.textContent);
     if (e.target.textContent === "<") {
       setCurrentPage(currentPage - 1);
     } else if (e.target.textContent === ">") {

@@ -1,17 +1,18 @@
 import List from "components/List/List";
 import RenderPageNumber from "containers/RenderPageNumber/RenderPageNumber";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import api from "utills/Api";
 
 const RenderAlbums = ({ className, state, setState, isOpen, setIsOpen, setUpdatePost }) => {
   const [renderList, setRenderList] = useState([]);
 
-  const render = async () => {
-    const data = await fetch("https://jsonplaceholder.typicode.com/albums");
-    const albums = await data.json();
-    setState(albums);
-  };
-
-  document.addEventListener("DOMContentLoaded", render);
+  useEffect(() => {
+    const getAlbums = async () => {
+      const albums = await api.get();
+      setState(albums);
+    };
+    getAlbums();
+  }, []);
 
   const DeletePost = async e => {
     await fetch(`https://jsonplaceholder.typicode.com/albums/${e.target.parentNode.id}`, {
