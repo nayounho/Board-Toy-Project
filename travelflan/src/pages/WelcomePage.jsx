@@ -8,15 +8,15 @@ const WelcomePage = ({ className }) => {
   const [state, setState] = useState([]);
   const [post, setPost] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-  const [updatePost, setUpdatePost] = useState({ id: 0, title: "" });
+  const [renewalPost, setRenewalPost] = useState({ id: 0, title: "" });
 
   return (
     <>
       <StyledTitle className={className} level={1}>
         TravelFlan Board
       </StyledTitle>
-      <StyledRenderAlbums state={state} setState={setState} post={post} setPost={setPost} isOpen={isOpen} setIsOpen={setIsOpen} setUpdatePost={setUpdatePost} />
-      <Post state={state} setState={setState} post={post} setPost={setPost} isOpen={isOpen} setIsOpen={setIsOpen} updatePost={updatePost} setUpdatePost={setUpdatePost} />
+      <StyledRenderAlbums state={state} setState={setState} post={post} setPost={setPost} isOpen={isOpen} setIsOpen={setIsOpen} renewalPost={renewalPost} setRenewalPost={setRenewalPost} />
+      <Post state={state} setState={setState} post={post} setPost={setPost} isOpen={isOpen} setIsOpen={setIsOpen} renewalPost={renewalPost} setRenewalPost={setRenewalPost} />
       <StyledFooter />
     </>
   );

@@ -8,7 +8,6 @@ const api = {
   },
 
   async post(newId, newTitle) {
-    console.log("new", newTitle);
     const data = await fetch(URL, {
       method: "POST",
       headers: { "content-Type": "application/json" },
@@ -20,6 +19,26 @@ const api = {
     });
     const addPost = await data.json();
     return addPost;
+  },
+
+  async update(renewalPost) {
+    const data = await fetch(`${URL}/${renewalPost}.id`, {
+      method: "PATCH",
+      headers: { "content-Type": "application/json" },
+      body: JSON.stringify({
+        title: renewalPost.title
+      })
+    });
+    const newPost = await data.json();
+    return newPost;
+  },
+
+  async delete(targetId, state) {
+    await fetch(`${URL}/${targetId}`, {
+      method: "DELETE"
+    });
+    const removePost = state.filter(post => targetId !== post.id);
+    return removePost;
   }
 };
 
@@ -44,4 +63,24 @@ export default api;
 //   const addPost = await data.json();
 //   setState([...state, addPost]);
 //   setPost("");
+// };
+
+// const UpdatePost = async e => {
+//   const data = await fetch(`https://jsonplaceholder.typicode.com/albums/${updatePost.id}`, {
+//     method: "PATCH",
+//     headers: { "content-Type": "application/json" },
+//     body: JSON.stringify({
+//       title: updatePost.title
+//     })
+//   });
+//   const newPost = await data.json();
+//   setState(state.map(post => (newPost.id === post.id ? { ...post, title: newPost.title } : post)));
+//   setUpdatePost({ id: 0, title: "" });
+// };
+
+// const DeletePost = async e => {
+//   await fetch(`https://jsonplaceholder.typicode.com/albums/${e.target.parentNode.id}`, {
+//     method: "DELETE"
+//   });
+//   setState(state.filter(post => +e.target.parentNode.id !== post.id));
 // };

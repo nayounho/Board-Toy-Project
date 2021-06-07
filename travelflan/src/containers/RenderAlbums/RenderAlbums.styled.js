@@ -13,6 +13,9 @@ const StyledRenderAlbums = styled(RenderAlbums)`
       font-size: 2rem;
       cursor: pointer;
     }
+    & > li {
+      font-size: 2rem;
+    }
     & > li > button {
       border: 0;
       outline: 0;

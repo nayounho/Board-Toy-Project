@@ -3,8 +3,13 @@ import RenderPageNumber from "containers/RenderPageNumber/RenderPageNumber";
 import { useEffect, useState } from "react";
 import api from "utills/Api";
 
-const RenderAlbums = ({ className, state, setState, isOpen, setIsOpen, setUpdatePost }) => {
+const RenderAlbums = ({ className, state, setState, isOpen, setIsOpen, renewalPost, setRenewalPost }) => {
   const [renderList, setRenderList] = useState([]);
+
+  const UpdateButton = e => {
+    setIsOpen(!isOpen);
+    setRenewalPost({ id: +e.target.parentNode.id, title: renderList.find(item => item.id === +e.target.parentNode.id).title });
+  };
 
   useEffect(() => {
     const getAlbums = async () => {
@@ -14,16 +19,10 @@ const RenderAlbums = ({ className, state, setState, isOpen, setIsOpen, setUpdate
     getAlbums();
   }, []);
 
-  const DeletePost = async e => {
-    await fetch(`https://jsonplaceholder.typicode.com/albums/${e.target.parentNode.id}`, {
-      method: "DELETE"
-    });
-    setState(state.filter(post => +e.target.parentNode.id !== post.id));
-  };
-
-  const UpdateButton = e => {
-    setIsOpen(!isOpen);
-    setUpdatePost({ id: +e.target.parentNode.id, title: renderList.find(item => item.id === +e.target.parentNode.id).title });
+  const deletePost = async e => {
+    const targetId = +e.target.parentNode.id;
+    const removePost = await api.delete(targetId, state);
+    setState(removePost);
   };
 
   return (
@@ -34,7 +33,7 @@ const RenderAlbums = ({ className, state, setState, isOpen, setIsOpen, setUpdate
             <List id={album.id} key={album.id}>
               <img src="http://placehold.it/300x200" />
               {album.title}
-              <button onClick={DeletePost}>X</button>
+              <button onClick={deletePost}>X</button>
               <button onClick={UpdateButton}>수정</button>
             </List>
           );
