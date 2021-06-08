@@ -3,6 +3,7 @@ import StyledFooter from "containers/Footer/Footer.styled";
 import StyledRenderAlbums from "containers/RenderAlbums/RenderAlbums.styled";
 import { useState } from "react";
 import Post from "containers/Post/Post";
+import StyledPost from "containers/Post/Post.styled";
 
 const WelcomePage = ({ className }) => {
   const [state, setState] = useState([]);
@@ -16,7 +17,7 @@ const WelcomePage = ({ className }) => {
         TravelFlan Board
       </StyledTitle>
       <StyledRenderAlbums state={state} setState={setState} post={post} setPost={setPost} isOpen={isOpen} setIsOpen={setIsOpen} renewalPost={renewalPost} setRenewalPost={setRenewalPost} />
-      <Post state={state} setState={setState} post={post} setPost={setPost} isOpen={isOpen} setIsOpen={setIsOpen} renewalPost={renewalPost} setRenewalPost={setRenewalPost} />
+      <StyledPost state={state} setState={setState} post={post} setPost={setPost} isOpen={isOpen} setIsOpen={setIsOpen} renewalPost={renewalPost} setRenewalPost={setRenewalPost} />
       <StyledFooter />
     </>
   );

@@ -3,7 +3,7 @@ import api from "utills/Api";
 
 const placeHolder = "새로운 게시물을 등록해주세요";
 
-const Post = ({ state, setState, post, setPost, isOpen, renewalPost, setRenewalPost }) => {
+const Post = ({ className, state, setState, post, setPost, isOpen, setIsOpen, renewalPost, setRenewalPost }) => {
   const onChange = e => {
     setPost(e.target.value);
   };
@@ -19,6 +19,7 @@ const Post = ({ state, setState, post, setPost, isOpen, renewalPost, setRenewalP
   const createPost = async () => {
     const addPost = await api.post(generateId(), post);
     setState([...state, addPost]);
+    console.log(addPost);
     setPost("");
   };
 
@@ -30,21 +31,20 @@ const Post = ({ state, setState, post, setPost, isOpen, renewalPost, setRenewalP
       })
     );
     setRenewalPost({ id: 0, title: "" });
+    setIsOpen(false);
   };
   return (
-    <>
-      {isOpen ? (
-        <div>
-          <StyledTextArea className="textAreaContainer" cols={50} rows={5} id={"updatePost"} onChange={textChange} value={renewalPost.title}></StyledTextArea>
-          <button onClick={updatePost}>수정</button>
-        </div>
-      ) : (
-        <>
-          <StyledTextArea className="textAreaContainer" cols={50} rows={5} id={"addPost"} placeholder={placeHolder} onChange={onChange} value={post}></StyledTextArea>
-          <button onClick={createPost}>등록</button>
-        </>
-      )}
-    </>
+    <div className={className}>
+      <StyledTextArea
+        className="textAreaContainer"
+        cols={50}
+        rows={5}
+        onChange={e => (isOpen ? textChange(e) : onChange(e))}
+        placeholder={isOpen ? "" : "새로운 게시물을 등록해주세요"}
+        value={isOpen ? renewalPost.title : post}
+      ></StyledTextArea>
+      <button onClick={() => (isOpen ? updatePost() : createPost())}>{isOpen ? "수정" : "등록"}</button>
+    </div>
   );
 };
 

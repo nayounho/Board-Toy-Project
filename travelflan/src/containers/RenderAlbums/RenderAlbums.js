@@ -1,5 +1,5 @@
 import List from "components/List/List";
-import StyledRenderPageNumber from "containers/RenderPageNumber/RenderPageNumber.styled";
+import RenderPageNumber from "containers/RenderPageNumber/RenderPageNumber";
 import { useEffect, useState } from "react";
 import api from "utills/Api";
 
@@ -43,7 +43,7 @@ const RenderAlbums = ({ className, state, setState, isOpen, setIsOpen, renewalPo
           );
         })}
       </ul>
-      <StyledRenderPageNumber state={state} setRenderList={setRenderList} />
+      <RenderPageNumber state={state} setRenderList={setRenderList} />
     </section>
   );
 };

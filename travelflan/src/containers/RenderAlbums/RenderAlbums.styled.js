@@ -9,11 +9,15 @@ const StyledRenderAlbums = styled(RenderAlbums)`
     flex-flow: column;
     justify-content: center;
   }
+  & > ul:first-child li {
+    margin-bottom: 2rem;
+  }
   & > ul + ul {
     display: flex;
     flex-flow: row;
     width: 100%;
     align-items: center;
+    margin-top: 2rem;
   }
   & > ul + ul > button {
     border: 0;
@@ -32,7 +36,6 @@ const StyledRenderAlbums = styled(RenderAlbums)`
     position: relative;
     display: flex;
     align-items: center;
-    margin-bottom: 2rem;
   }
   & > ul > li > span {
     font-size: 2rem;
