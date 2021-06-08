@@ -1,7 +1,7 @@
 import List from "components/List/List";
 import { useEffect, useState } from "react";
 
-const RenderPageNumber = ({ state, setRenderList }) => {
+const RenderPageNumber = ({ state, setRenderList, className }) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const pageNumber = () => {
@@ -33,7 +33,7 @@ const RenderPageNumber = ({ state, setRenderList }) => {
   };
 
   return (
-    <ul className="pageNumber" onClick={onClick}>
+    <ul className={className} onClick={onClick}>
       <button>{"<"}</button>
       {pageNumber()}
       <button>{">"}</button>

@@ -1,5 +1,5 @@
 import List from "components/List/List";
-import RenderPageNumber from "containers/RenderPageNumber/RenderPageNumber";
+import StyledRenderPageNumber from "containers/RenderPageNumber/RenderPageNumber.styled";
 import { useEffect, useState } from "react";
 import api from "utills/Api";
 
@@ -32,14 +32,18 @@ const RenderAlbums = ({ className, state, setState, isOpen, setIsOpen, renewalPo
           return (
             <List id={album.id} key={album.id}>
               <img src="http://placehold.it/300x200" />
-              {album.title}
-              <button onClick={deletePost}>X</button>
-              <button onClick={UpdateButton}>수정</button>
+              <span>{album.title}</span>
+              <button className="delete" onClick={deletePost}>
+                X
+              </button>
+              <button className="update" onClick={UpdateButton}>
+                수정
+              </button>
             </List>
           );
         })}
       </ul>
-      <RenderPageNumber state={state} setRenderList={setRenderList} />
+      <StyledRenderPageNumber state={state} setRenderList={setRenderList} />
     </section>
   );
 };

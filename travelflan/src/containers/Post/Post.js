@@ -15,6 +15,7 @@ const Post = ({ state, setState, post, setPost, isOpen, renewalPost, setRenewalP
   const generateId = () => {
     return state.length ? Math.max(...state.map(post => post.id)) + 1 : 1;
   };
+
   const createPost = async () => {
     const addPost = await api.post(generateId(), post);
     setState([...state, addPost]);
@@ -23,10 +24,13 @@ const Post = ({ state, setState, post, setPost, isOpen, renewalPost, setRenewalP
 
   const updatePost = async () => {
     const newPost = await api.update(renewalPost);
-    setState(state.map(post => (newPost.id === post.id ? { ...post, title: newPost.title } : post)));
+    setState(
+      state.map(post => {
+        return newPost.id === post.id ? { ...post, title: newPost.title } : post;
+      })
+    );
     setRenewalPost({ id: 0, title: "" });
   };
-  console.log(renewalPost);
   return (
     <>
       {isOpen ? (
