@@ -14,7 +14,7 @@ const WelcomePage = ({ className }) => {
   return (
     <>
       <StyledTitle className={className} level={1}>
-        TravelFlan Board
+        Board Toy-Project
       </StyledTitle>
       <StyledRenderAlbums state={state} setState={setState} post={post} setPost={setPost} isOpen={isOpen} setIsOpen={setIsOpen} renewalPost={renewalPost} setRenewalPost={setRenewalPost} />
       <StyledPost state={state} setState={setState} post={post} setPost={setPost} isOpen={isOpen} setIsOpen={setIsOpen} renewalPost={renewalPost} setRenewalPost={setRenewalPost} />
